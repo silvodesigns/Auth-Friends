@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 
 
-function Signin() {
+function Signin(props) {
 
     const [error, setError] = useState()
     const [data, setData] = useState({
@@ -28,6 +28,7 @@ const handleSubmit = (event) => {
     .then(result => {
         console.log(result.data)
         localStorage.setItem("token", result.data.payload)
+        props.history.push('/friendlist')
     })
     .catch(err => {
         setError(err.response.data.message)
