@@ -4,7 +4,27 @@ import axios from 'axios';
 
 function FriendList(props) {
 
-    //this function helps us handle the onSubmit event of the form
+  
+    const [error, setError] = useState()
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        axios.get("http://localhost:5000/api/friends", { headers: {Authorization: localStorage.getItem("token")}})
+        .then(result => {
+           const list = result.data
+           list.forEach(element => {
+               setData([...data, element])
+           });
+        })
+        .catch(err => {
+            setError(err.response.data.message)
+        })
+      }, []);
+
+
+
+
+      
   return (
     <div>
             <h1>FriendList</h1>
